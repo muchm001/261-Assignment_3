@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Michael Uchmanowicz
+# Assignment: A3 P4
+# Description: a Queue ADT
 
 
 from max_stack_sll import *

@@ -110,12 +110,14 @@ class CircularList:
                 if pre == self.sentinel:
                     raise CDLLException
             else:
-                if index == 0:
-                    self.sentinel.next = DLNode(value)
-                    self.sentinel.next.next = cur
-                else:
-                    pre.next = DLNode(value)
-                    pre.next.next = cur
+                w = cur.prev
+                x = DLNode(value)
+                y = cur
+
+                x.next = y
+                w.next = x
+                x.prev = w
+                y.prev = x
         return
 
     def remove_front(self) -> None:
@@ -170,11 +172,12 @@ class CircularList:
             else:
                 if cur == self.sentinel:
                     raise CDLLException
-                if cur == self.sentinel.next:
-                    self.sentinel.next = cur.next
                 else:
-                    pre.next = cur.next
-        return
+                    w = cur.prev
+                    y = cur.next
+
+                    y.prev = w
+                    w.next = y
 
     def get_front(self) -> object:
         """
@@ -329,19 +332,35 @@ class CircularList:
                 curr_node2 = curr_node2.next
                 two_index += 1
 
-            if prev_node is not None:
-                prev_node.next = curr_node2
-            else:  # make y the new head
-                self.sentinel.next = curr_node2
+            w1 = prev_node
+            x1 = curr_node
+            y1 = curr_node.next
 
-            if prev_node2 is not None:
-                prev_node2.next = curr_node
-            else:  # make x the new head
-                self.sentinel.next = curr_node
+            w2 = prev_node2
+            x2 = curr_node2
+            y2 = curr_node2.next
 
-            temp = curr_node.next
-            curr_node.next = curr_node2.next
-            curr_node2.next = temp
+            if index2 == index1 + 1:
+                pass
+                x2.prev = w1
+                x1.next = y2
+                x2.next = x1
+                x1.prev = x2
+                w1.next = x2
+                y2.prev = x1
+
+            else:
+
+                x1.next = y2
+                x2.next = y1
+                w1.next = x2
+                w2.next = x1
+
+                x1.prev = w2
+                x2.prev = w1
+                y2.prev = x1
+                y1.prev = x2
+
 
     def reverse(self) -> None:
         """
@@ -363,7 +382,21 @@ class CircularList:
         """
         TODO: Write this implementation
         """
-        return
+
+        last_sort = None
+        length = self.length()
+        while last_sort != 0:
+            if last_sort is not None:
+                length = last_sort
+            if length <= 1:
+                return
+            else:
+                for i in range(length - 1):
+                    if self.get_at_index(i) > self.get_at_index(i + 1) and i != length:
+                        self.swap_pairs(i, i + 1)
+                        last_sort = i + 1
+                    else:
+                        last_sort = i + 1
 
     def length(self) -> int:
         """
@@ -393,6 +426,7 @@ class CircularList:
 
 
 if __name__ == '__main__':
+    pass
 
     # print('\n# add_front example 1')
     # list = CircularList()
@@ -409,8 +443,8 @@ if __name__ == '__main__':
     # list.add_back('B')
     # list.add_back('A')
     # print(list)
-    # #
-    # #
+    #
+    #
     # print('\n# insert_at_index example 1')
     # list = CircularList()
     # test_cases = [(0, 'A'), (0, 'B'), (1, 'C'), (3, 'D'), (-1, 'E'), (5, 'F')]
@@ -550,37 +584,48 @@ if __name__ == '__main__':
     # for i in range(799, 300, -1):
     #     list.remove_at_index(i)
     # print(list.length())
+    #
+    print('\n# swap pairs example 1')
+    list = CircularList([0, 1, 2, 3, 4, 5, 6])
+    test_cases = ((0, 6), (0, 7), (-1, 6), (1, 5), (4, 2), (3, 3))
+    for i, j in test_cases:
+        print('\nSwap nodes ', i, j, ' ', end='')
+        try:
+            list.swap_pairs(i, j)
+            print(list)
+        except Exception as e:
+            print(type(e))
 
-    # print('\n# swap pairs example 1')
-    # list = CircularList([0, 1, 2, 3, 4, 5, 6])
-    # test_cases = ((0, 6), (0, 7), (-1, 6), (1, 5), (4, 2), (3, 3))
-    # for i, j in test_cases:
-    #     print('\nSwap nodes ', i, j, ' ', end='')
-    #     try:
-    #         list.swap_pairs(i, j)
-    #         print(list)
-    #     except Exception as e:
-    #         print(type(e))
-
-    print('\n# reverse example 1')
-    test_cases = (
-        [1, 2, 3, 3, 4, 5],
-        [1, 2, 3, 4, 5],
-        ['A', 'B', 'C', 'D']
-    )
-    for case in test_cases:
-        list = CircularList(case)
-        list.reverse()
-        print(list)
-
-    print('\n# reverse example 2')
-    list = CircularList()
-    print(list)
-    list.reverse()
-    print(list)
-    list.add_back(2)
-    list.add_back(3)
-    list.add_front(1)
-    list.reverse()
-    print(list)
-
+    # print('\n# reverse example 1')
+    # test_cases = (
+    #     [1, 2, 3, 3, 4, 5],
+    #     [1, 2, 3, 4, 5],
+    #     ['A', 'B', 'C', 'D']
+    # )
+    # for case in test_cases:
+    #     list = CircularList(case)
+    #     list.reverse()
+    #     print(list)
+    #
+    # print('\n# reverse example 2')
+    # list = CircularList()
+    # print(list)
+    # list.reverse()
+    # print(list)
+    # list.add_back(2)
+    # list.add_back(3)
+    # list.add_front(1)
+    # list.reverse()
+    # print(list)
+    #
+    # print('\n# Sort Example 1')
+    # test_cases = (
+    #     [1, 10, 2, 20, 3, 30, 4, 40, 5],
+    #     ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
+    #     [(1, 1), (20, 1), (1, 20), (2, 20)]
+    # )
+    # for case in test_cases:
+    #     list = CircularList(case)
+    #     print(list)
+    #     list.sort()
+    #     print(list)
