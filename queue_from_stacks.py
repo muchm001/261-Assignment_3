@@ -37,25 +37,40 @@ class Queue:
         """
         TODO: Write this implementation
         """
-        return
+        self.s1.push(value)
 
     def dequeue(self) -> object:
         """
         TODO: Write this implementation
         """
-        return 0
+        if self.s1.is_empty():
+            raise QueueException
+        else:
+            i = self.s1.size()
+            while i >= 1:
+                if i > 1:
+                    self.s2.push(self.s1.pop())
+                    i -= 1
+                else:
+                    val = self.s1.pop()
+                    t = 0
+                    org_size = self.s2.size()
+                    while t < org_size:
+                        self.s1.push(self.s2.pop())
+                        t += 1
+                    return val
 
     def is_empty(self) -> bool:
         """
         TODO: Write this implementation
         """
-        return True
+        return self.s1.is_empty()
 
     def size(self) -> int:
         """
         TODO: Write this implementation
         """
-        return 0
+        return self.s1.size()
 
 
 
@@ -63,12 +78,12 @@ class Queue:
 # BASIC TESTING
 if __name__ == "__main__":
 
-    print('\n# enqueue example 1')
-    q = Queue()
-    print(q)
-    for value in [1, 2, 3, 4, 5]:
-        q.enqueue(value)
-    print(q)
+    # print('\n# enqueue example 1')
+    # q = Queue()
+    # print(q)
+    # for value in [1, 2, 3, 4, 5]:
+    #     q.enqueue(value)
+    # print(q)
 
 
     print('\n# dequeue example 1')
@@ -81,23 +96,23 @@ if __name__ == "__main__":
             print(q.dequeue())
         except Exception as e:
             print("No elements in queue", type(e))
-
-
-    print('\n# is_empty example 1')
-    q = Queue()
-    print(q.is_empty())
-    q.enqueue(10)
-    print(q.is_empty())
-    q.dequeue()
-    print(q.is_empty())
-
-
-    print('\n# size example 1')
-    q = Queue()
-    print(q.size())
-    for value in [1, 2, 3, 4, 5, 6]:
-        q.enqueue(value)
-    print(q.size())
+    #
+    #
+    # print('\n# is_empty example 1')
+    # q = Queue()
+    # print(q.is_empty())
+    # q.enqueue(10)
+    # print(q.is_empty())
+    # q.dequeue()
+    # print(q.is_empty())
+    #
+    #
+    # print('\n# size example 1')
+    # q = Queue()
+    # print(q.size())
+    # for value in [1, 2, 3, 4, 5, 6]:
+    #     q.enqueue(value)
+    # print(q.size())
 
 
 
