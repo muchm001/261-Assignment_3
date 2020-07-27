@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
 # Student Name: Michael Uchmanowicz
 # Assignment: A3 P3
-# Description:
+# Description: a Stack ADT class
 
 
 from sll import *

@@ -216,7 +216,8 @@ class CircularList:
 
     def count(self, value: object) -> int:
         """
-        TODO: Write this implementation
+        Counts the number of elements in the list that match the provided “value”
+        object
         """
         cur = self.sentinel.next
         value_count = 0
@@ -230,7 +231,12 @@ class CircularList:
 
     def slice(self, start_index: int, size: int) -> object:
         """
-        TODO: Write this implementation
+        Returns a new CircularlyLinkedList object that contains the requested number of nodes
+        from the original list starting with the node located at the requested start index. If the
+        original list contains N nodes, valid start_index is in range [0, N - 1] inclusive.
+        If the provided start index is invalid, or if there are not enough nodes between start index
+        and end of the list to make the slice of requested size, this method raises a custom
+        “CDLLException”
         """
         if start_index > self.length() - 1 or start_index + size - 1 > self.length() - 1:
             raise CDLLException
@@ -271,7 +277,11 @@ class CircularList:
 
     def is_sorted(self) -> int:
         """
-        TODO: Write this implementation
+        Returns an integer that describes whether the linked list is sorted. Method
+        should return 1 if the list is sorted in strictly ascending order. It should return 2 if the list is
+        sorted in strictly descending order. Otherwise the method should return 0.
+        Empty list and list consisting of a single node is considered sorted in strictly ascending
+        order
         """
         if self.sentinel.next == self.sentinel or self.sentinel.next.next == self.sentinel:
             return 1
@@ -303,6 +313,9 @@ class CircularList:
                 return 0
 
     def swap_pairs(self, index1: int, index2: int) -> None:
+        """
+        Swaps pairs of two nodes located at different indices
+        """
 
         if index1 < 0 or index2 < 0:
             raise CDLLException
@@ -361,10 +374,9 @@ class CircularList:
                 y2.prev = x1
                 y1.prev = x2
 
-
     def reverse(self) -> None:
         """
-        TODO: Write this implementation
+        Reverses the order of the nodes in the list.
         """
         length = self.length()
         if length % 2 == 0:
@@ -380,7 +392,7 @@ class CircularList:
 
     def sort(self) -> None:
         """
-        TODO: Write this implementation
+        Sorts the content of the list in non-descending order.
         """
 
         last_sort = None
@@ -400,7 +412,7 @@ class CircularList:
 
     def length(self) -> int:
         """
-        TODO: Write this implementation
+        Returns the number of nodes in the list
         """
         if self.sentinel.next == self.sentinel:
             return 0
@@ -417,7 +429,7 @@ class CircularList:
 
     def is_empty(self) -> bool:
         """
-        TODO: Write this implementation
+        Returns True if the list has no data nodes. Otherwise, it returns False. T
         """
         if self.sentinel.next == self.sentinel:
             return True

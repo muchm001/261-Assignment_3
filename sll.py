@@ -164,7 +164,8 @@ class LinkedList:
 
     def get_front(self) -> object:
         """
-        TODO: Write this implementation
+        Returns value from the first node in the list without removing it. If the list is
+        empty, the method raises a custom “SLLException”
         """
         if self.head.next == self.tail:
             raise SLLException
@@ -173,7 +174,8 @@ class LinkedList:
 
     def get_back(self) -> object:
         """
-        TODO: Write this implementation
+        Returns value from the last node in the list without removing it. If the list is
+        empty, the method raises a custom “SLLException”
         """
         if self.head.next == self.tail:
             raise SLLException

@@ -35,13 +35,15 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new value to the end of the queue
         """
         self.s1.push(value)
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Removes and returns the value from the beginning of the queue. It must be
+        implemented with the runtime complexity of not worse than O(n).
+        If the queue is empty, the method raises a custom “QueueException”.
         """
         if self.s1.is_empty():
             raise QueueException
@@ -62,13 +64,13 @@ class Queue:
 
     def is_empty(self) -> bool:
         """
-        TODO: Write this implementation
+        Returns True if there are no elements in the queue. Otherwise it returns False
         """
         return self.s1.is_empty()
 
     def size(self) -> int:
         """
-        TODO: Write this implementation
+        Returns the number of elements currently in the queue
         """
         return self.s1.size()
 
